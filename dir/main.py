@@ -1,2 +1,5 @@
-def main(a,b,c):
-    return a+b+c
+def main(*inputs):
+    out = 0
+    for i in inputs:
+        out += i
+    return out
