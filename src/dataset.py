@@ -15,7 +15,8 @@ app = typer.Typer()
 def main(params_path: str):
     params = read_pipeline_params(params_path)
     X, y = sklearn.datasets.make_classification(
-        n_samples=params.data_params.n_samples, n_features=params.data_params.n_features
+        n_samples=params.data_params.n_samples, n_features=params.data_params.n_features,
+        random_state=params.random_state
     )
     data = pd.DataFrame(np.hstack([X, y.reshape(-1, 1)]))
     data.columns = [f"feat_{i}" for i in range(data.shape[-1])]

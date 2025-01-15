@@ -5,6 +5,7 @@ import pandas as pd
 import typer
 import sklearn
 from src.params.pipe_params import read_pipeline_params
+from models import decision_tree, logistic_regression, random_forest
 
 
 app = typer.Typer()
@@ -21,7 +22,13 @@ def main(params_path: str):
     X_test = test.drop("target", axis=1)
     y_test = test["target"].values.reshape(-1, 1)
 
-
+    match params.train_params.model_path:
+        case "./models/decision_tree.pkl":
+            decision_tree.main(params_path)
+        case "./models/logistic_regression.pkl":
+            logistic_regression.main(params_path)
+        case "./models/random_forest.pkl":
+            random_forest.main(params_path)
 
     with open(params.train_params.model_path, 'rb') as model_file:
         model = pickle.load(model_file)
